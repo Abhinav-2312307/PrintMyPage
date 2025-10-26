@@ -1,14 +1,15 @@
-const Brevo = require('@getbrevo/brevo');
+// Use the specific classes directly from the package
+const SibApiV3Sdk = require('@getbrevo/brevo');
 
-// Configure the API client
-const defaultClient = Brevo.ApiClient.instance;
-const apiKey = defaultClient.authentications['api-key'];
-apiKey.apiKey = process.env.BREVO_API_KEY; // Your API key from .env
+// Create an API client instance
+const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
-const apiInstance = new Brevo.TransactionalEmailsApi();
+// Configure API key authentication
+const apiKey = apiInstance.authentications['apiKey'];
+apiKey.apiKey = process.env.BREVO_API_KEY; // Your API key from .env/Render env vars
 
 const sendEmail = async (options) => {
-  const sendSmtpEmail = new Brevo.SendSmtpEmail(); // SendSmtpEmail | Values to send a transactional email
+  const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail(); // Create email object
 
   sendSmtpEmail.subject = options.subject;
   sendSmtpEmail.htmlContent = options.html;
@@ -16,10 +17,11 @@ const sendEmail = async (options) => {
   sendSmtpEmail.to = [{ email: options.email }]; // Recipient
 
   try {
+    // Send the email using the configured apiInstance
     await apiInstance.sendTransacEmail(sendSmtpEmail);
     console.log(`Email sent successfully via Brevo to ${options.email}`);
   } catch (error) {
-    console.error(`Error sending Brevo email to ${options.email}:`, error.response?.text || error.message); // Log Brevo's specific error if available
+    console.error(`Error sending Brevo email to ${options.email}:`, error.response?.text || error.message);
     throw error; // Re-throw
   }
 };
