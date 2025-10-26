@@ -1,0 +1,108 @@
+/* --- Profile Page Specific Styles --- */
+
+#profile-container {
+    padding-top: 80px;
+    opacity: 1;
+    transform: translateY(0);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.profile-title {
+    font-size: 2.5rem;
+    color: #00ff88;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #333333;
+    padding-bottom: 1rem;
+    text-align: center;
+}
+
+.profile-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    background: #1a1a1a;
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid #333333;
+}
+
+.profile-picture-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.profile-pic-large {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #404040;
+    margin-bottom: 1rem;
+}
+
+.profile-btn-secondary {
+    background: #404040;
+    color: #e0e0e0;
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.profile-btn-secondary:hover {
+    background: #555;
+}
+
+.profile-details-section .input-group {
+    margin-bottom: 1.2rem;
+}
+
+.profile-details-section input:read-only {
+    background: #2d2d2d;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.profile-btn-primary {
+    background: linear-gradient(45deg, #00ff88, #00a3ff);
+    color: #1a1a1a;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    width: 100%;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+.profile-btn-primary:hover {
+    transform: translateY(-2px);
+}
+.profile-btn-primary:disabled {
+    background: #404040;
+    cursor: not-allowed;
+}
+
+.message {
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: 600;
+}
+.message.success { color: #81c784; }
+.message.error { color: #e57373; }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .profile-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .profile-picture-section {
+        order: -1; /* Move picture to top on mobile */
+    }
+}

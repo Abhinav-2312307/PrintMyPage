@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - PrintMyPage</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+
+    <nav class="main-nav">
+        <div class="nav-links">
+            <a href="index.html">Place Order</a>
+            <a href="my-orders.html">My Orders</a>
+        </div>
+        <div class="nav-auth" id="auth-links">
+            </div>
+    </nav>
+
+    <div class="main-content" id="my-orders-container">
+        <h1 class="my-orders-title">My Orders</h1>
+        <div id="order-list-content">
+            <p>Loading your orders...</p>
+        </div>
+    </div>
+    
+    <script src="my-orders.js"></script>
+</body>
+</html>

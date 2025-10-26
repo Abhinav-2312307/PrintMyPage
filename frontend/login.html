@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - PrintMyPage</title>
+    <link rel="stylesheet" href="auth-styles.css">
+</head>
+<body>
+    
+    <div class="auth-container">
+        <h1>Customer Login</h1>
+        
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="rollNumber">Roll Number</label>
+                <input type="text" id="rollNumber" name="rollNumber" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button type="submit" class="auth-btn" id="loginBtn">Login</button>
+        </form>
+
+        <div class="error-message" id="errorMessage"></div>
+        <p class="sub-text">Don't have an account? <a href="register.html">Register here</a></p>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>

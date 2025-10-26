@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - PrintMyPage</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="profile-styles.css">
+</head>
+<body>
+
+    <nav class="main-nav">
+        <div class="nav-links">
+            <a href="index.html">Place Order</a>
+            <a href="my-orders.html">My Orders</a>
+            <a href="profile.html">My Profile</a> </div>
+        <div class="nav-right-group">
+            <div class="nav-auth" id="auth-links">
+                </div>
+            <div class="instructions-container">
+                <div class="instructions-btn">...</div>
+                <div class="instructions-content">...</div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content" id="profile-container">
+        <h1 class="profile-title">My Profile</h1>
+
+        <div class="profile-layout">
+            <div class="profile-picture-section">
+                <img id="profileImage" src="placeholder.png" alt="Profile Picture" class="profile-pic-large">
+                <input type="file" id="profilePicInput" accept="image/*" style="display: none;">
+                <button id="changePicBtn" class="profile-btn-secondary">Change Picture</button>
+                <div class="message" id="picMessage"></div>
+            </div>
+
+            <div class="profile-details-section">
+                <form id="profileForm">
+                    <div class="input-group">
+                        <label>Roll Number (Cannot Change)</label>
+                        <input type="text" id="rollNumber" name="rollNumber" readonly disabled>
+                    </div>
+                    <div class="input-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                     <div class="input-group">
+                        <label for="branch">Branch</label>
+                        <input type="text" id="branch" name="branch" required>
+                    </div>
+                     <div class="input-group">
+                        <label for="section">Section</label>
+                        <input type="text" id="section" name="section" required>
+                    </div>
+                     <div class="input-group">
+                        <label for="contactNo">Contact Number</label>
+                        <input type="tel" id="contactNo" name="contactNo" required>
+                    </div>
+                     <div class="input-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <button type="submit" class="profile-btn-primary" id="updateProfileBtn">Update Profile</button>
+                    <div class="message" id="profileMessage"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="profile.js"></script>
+</body>
+</html>

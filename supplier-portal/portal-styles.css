@@ -1,0 +1,292 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: #1a1a1a;
+    color: #e0e0e0;
+    /* Removed flex centering for scrollable dashboard */
+    padding-top: 2rem; /* Add some space at the top */
+    padding-bottom: 2rem; /* Add space at the bottom */
+    min-height: 100vh;
+}
+
+.login-container, .dashboard-container {
+    background: #2d2d2d;
+    padding: 2.5rem;
+    border-radius: 15px;
+    border: 1px solid #404040;
+    width: 90%;
+    max-width: 450px; /* Max width for login */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    margin: 0 auto; /* Center the containers */
+}
+
+/* Adjust dashboard width */
+.dashboard-container {
+    max-width: 900px; /* Wider for dashboard content */
+}
+
+h1 {
+    text-align: center;
+    color: #00ff88;
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+label {
+    font-weight: 600;
+    color: #c0c0c0;
+}
+
+input, select { /* Added select here */
+    padding: 0.8rem;
+    background: #1a1a1a;
+    border: 1px solid #404040;
+    color: #ffffff;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+input:focus, select:focus { /* Added select here */
+    border-color: #00ff88;
+    outline: none;
+}
+
+.portal-btn {
+    background: linear-gradient(45deg, #00ff88, #00a3ff);
+    color: #1a1a1a;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    width: 100%;
+    font-weight: 600;
+}
+
+.portal-btn:hover {
+    transform: translateY(-2px);
+}
+
+.portal-btn:disabled {
+    background: #404040;
+    cursor: not-allowed;
+}
+
+.error-message {
+    background: #4d2020;
+    color: #ffc0c0;
+    border: 1px solid #ff5050;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 1.5rem;
+    display: none; /* Hidden by default */
+}
+
+/* --- Dashboard Styles --- */
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #404040;
+    padding-bottom: 1.5rem;
+}
+
+.dashboard-header h1 {
+    margin-bottom: 0;
+    font-size: 1.8rem;
+}
+
+#logoutBtn {
+    width: auto;
+    padding: 0.8rem 1.2rem;
+    background: #c03030;
+    font-size: 1rem;
+}
+#logoutBtn:hover {
+    background: #ff4040;
+    transform: translateY(-2px);
+}
+
+.order-list h2 {
+    color: #c0c0c0;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+/* Renamed .order-card to .order-card-item for consistency */
+.order-card-item {
+    background: #1a1a1a;
+    border: 1px solid #404040;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.order-card-item h3 {
+    color: #00ff88;
+    margin-bottom: 1rem;
+    display: flex; /* Allow tag to align */
+    justify-content: space-between; /* Push tag to the right */
+    align-items: center;
+}
+
+.order-details { /* Removed .order-actions from this rule */
+    display: grid;
+    /* grid-template-columns: 1fr 1fr; */ /* Defined separately below */
+    gap: 1rem;
+    margin-bottom: 1.5rem; /* Added margin */
+}
+
+.order-details p {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.order-details p strong {
+    color: #c0c0c0;
+    min-width: 120px;
+    display: inline-block;
+}
+
+/* --- ✨ ACTION AREA FIXES START ✨ --- */
+.order-actions {
+    margin-top: 1.5rem;
+    border-top: 1px solid #404040;
+    padding-top: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 1rem; /* Space between columns */
+    align-items: center; /* Vertically center items in grid cells */
+}
+
+/* Style the div holding the label and select */
+.order-actions > div {
+    display: flex;
+    flex-direction: column; /* Stack label on top of select */
+    gap: 0.3rem; /* Space between label and select */
+}
+
+/* Style the label within the actions area */
+.order-actions label {
+    font-weight: 600;
+    color: #c0c0c0;
+    font-size: 0.9rem; /* Slightly smaller */
+}
+/* --- ✨ ACTION AREA FIXES END ✨ --- */
+
+.download-btn {
+    text-decoration: none;
+    display: inline-block; /* Changed from inline-block */
+    text-align: center;
+    background: linear-gradient(45deg, #00ff88, #00a3ff);
+    color: #1a1a1a;
+    padding: 1rem; /* Adjusted padding slightly */
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    width: 100%; /* Make button fill its grid cell */
+    font-weight: 600;
+    height: fit-content; /* Ensure height matches select box row */
+}
+.download-btn:hover {
+    transform: translateY(-2px);
+}
+
+.status-select {
+    padding: 0.8rem;
+    background: #2d2d2d;
+    border: 1px solid #404040;
+    color: #ffffff;
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 100%; /* Make select fill its container */
+}
+
+/* --- Supplier Dashboard Updates --- */
+.order-card-item textarea { /* Changed selector */
+    width: 100%;
+    padding: 0.8rem;
+    background: #2d2d2d;
+    border: 1px solid #404040;
+    color: #ffffff;
+    border-radius: 8px;
+    font-size: 1rem;
+    min-height: 80px;
+    margin-top: 1rem;
+}
+/* --- Supplier Dashboard - Customer DP --- */
+
+.order-details.supplier-view {
+    grid-template-columns: 2fr 1fr; /* Specific grid for supplier view */
+}
+
+.customer-info-block {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.customer-dp-small {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #555;
+    flex-shrink: 0;
+}
+
+/* --- Supplier Dashboard Broadcast Orders --- */
+.order-card-item.broadcast-order {
+    border-left: 5px solid #ffb74d;
+    background-color: #3a3a3a;
+}
+/* Adjust actions grid for broadcast orders */
+.order-card-item.broadcast-order .order-actions {
+    grid-template-columns: 1fr; /* Single column for accept/view */
+}
+
+.broadcast-tag {
+    font-size: 0.8rem;
+    color: #ffb74d;
+    font-weight: bold;
+    /* Removed margin-left, handled by flexbox */
+}
+.accept-broadcast-btn {
+    background: #4caf50;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+.accept-broadcast-btn:hover {
+    background: #66bb6a;
+}
+.secondary-download {
+    background: #555;
+    font-size: 0.9rem;
+    padding: 0.7rem;
+    text-align: center;
+    display: block;
+}
+.secondary-download:hover {
+    background: #666;
+}
