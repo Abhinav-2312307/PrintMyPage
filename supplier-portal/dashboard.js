@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Make sure to use the same port as your running backend
-    const backendUrl = 'http://localhost:5001'; 
-    
+    // const backendUrl = 'http://localhost:5001'; 
+    const backendUrl = 'https://printmypage.onrender.com';
     const welcomeMessage = document.getElementById('welcomeMessage');
     const logoutBtn = document.getElementById('logoutBtn');
     const orderList = document.getElementById('orderList');
