@@ -1,0 +1,4 @@
+node_modules
+.env
+BREVO_API_KEY
+login-failure.jpg
