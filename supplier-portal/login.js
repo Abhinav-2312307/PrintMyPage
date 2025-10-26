@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorMessage = document.getElementById('errorMessage');
 
     // Make sure to use the same port as your running backend
-    const backendUrl = 'http://localhost:5001'; 
+    // const backendUrl = 'http://localhost:5001'; 
+    const backendUrl = 'https://printmypage.onrender.com'; // <-- Use your Render URL
 
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault(); // Stop form from reloading page
