@@ -340,6 +340,7 @@ async function handleSupplierClick(event) {
         const submitBtn = orderForm.querySelector('button[type="submit"]');
 
         try {
+            console.log('[DEBUG Frontend] Placing order. Data:', currentOrderData); // Log data being sent
             if (submitBtn) {
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Placing Order...';
@@ -351,15 +352,37 @@ async function handleSupplierClick(event) {
                 body: JSON.stringify(currentOrderData),
                 credentials: 'include'
             });
-            const result = await response.json();
 
-            if (!response.ok) {
+            // --- ADD DEBUG LOGS ---
+            console.log('[DEBUG Frontend] Received response from /api/place-order');
+            console.log('[DEBUG Frontend] Response Status:', response.status);
+            console.log('[DEBUG Frontend] Response OK?', response.ok);
+
+            // Try parsing JSON carefully
+            let result;
+            try {
+                result = await response.json();
+                console.log('[DEBUG Frontend] Parsed JSON result:', result);
+            } catch (jsonError) {
+                console.error('[DEBUG Frontend] Failed to parse response JSON:', jsonError);
+                // Try to read response as text to see what the server actually sent
+                const textResponse = await response.text();
+                console.error('[DEBUG Frontend] Response text received:', textResponse);
+                throw new Error('Server sent an invalid response (not JSON).'); // Re-throw specific error
+            }
+            // -----------------------
+
+            if (!response.ok) { // Checks status code (e.g., 4xx, 5xx)
+                 console.error('[DEBUG Frontend] Response was not OK (status not 2xx):', result);
                 if (response.status === 401) { throw new Error('Your session expired. Please login again.'); }
-                throw new Error(result.message || 'Failed to place order.');
+                throw new Error(result.message || 'Failed to place order (backend error).');
             }
 
+            // If execution reaches here, it was successful
+            console.log('[DEBUG Frontend] Order placement successful according to frontend.');
             alert(`Order placed successfully! Your Order ID is: ${result.orderId}\nYou can track it in the "My Orders" page.`);
             orderForm.reset();
+            // Clear hidden fields and preview
             cloudinaryUrlInput.value = '';
             originalFilenameInput.value = '';
             pageCountResultInput.value = '';
@@ -367,16 +390,23 @@ async function handleSupplierClick(event) {
             uploadStatus.className = 'upload-status';
             manualPagesGroup.style.display = 'none';
             calculatedPages = null;
-            updatePreview(); // Reset preview
+            updatePreview();
 
         } catch (error) {
-            console.error('Error placing order:', error);
+            console.error('[DEBUG Frontend] Error caught during place order:', error); // Log the caught error
             alert(`An error occurred: ${error.message}`);
             if (error.message.includes('session expired')) { window.location.href = 'login.html'; }
+            // Log before finally block
+            console.log('[DEBUG Frontend] Entering finally block after error.');
         } finally {
+             // Log inside finally block
+            console.log('[DEBUG Frontend] Running finally block...');
             if (submitBtn) {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Choose Supplier & Place Order';
+                console.log('[DEBUG Frontend] Submit button re-enabled.');
+            } else {
+                 console.warn('[DEBUG Frontend] Could not find submit button in finally block.');
             }
             currentOrderData = null;
         }
