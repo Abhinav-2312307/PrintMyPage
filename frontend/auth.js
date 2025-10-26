@@ -1,4 +1,5 @@
-const backendUrl = 'http://localhost:5001';
+// const backendUrl = 'http://localhost:5001';
+const backendUrl = 'https://printmypage.onrender.com/';
 const errorMessage = document.getElementById('errorMessage');
 
 // --- Register Logic ---
