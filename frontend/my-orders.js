@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // const backendUrl = 'http://localhost:5001';
-    const backendUrl = 'https://printmypage.onrender.com/';
+    const backendUrl = 'https://printmypage.onrender.com';
     let loggedInUser = null;
 
     async function checkUserSession() {
