@@ -3,22 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Supplier Dashboard</title>
+    <title>Supplier Portal - Login</title>
     <link rel="stylesheet" href="portal-styles.css">
 </head>
 <body>
     
-    <div class="dashboard-container">
-        <header class="dashboard-header">
-            <h1 id="welcomeMessage">Welcome, ...</h1>
-            <button class="portal-btn" id="logoutBtn">Logout</button>
-        </header>
-
-        <div class="order-list" id="orderList">
-            <h2>Your New Orders</h2>
+    <div class="login-container">
+        <h1>Supplier Login</h1>
+        
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="contact_number">Contact Number</label>
+                <input type="text" id="contact_number" name="contact_number" required placeholder="e.g., 919793404007">
             </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button type="submit" class="portal-btn" id="loginBtn">Login</button>
+        </form>
+
+        <div class="error-message" id="errorMessage"></div>
     </div>
 
-    <script src="dashboard.js"></script>
+    <script src="login.js"></script>
 </body>
 </html>
