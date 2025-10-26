@@ -43,9 +43,35 @@ const User = require('./models/userModel'); // Our new User model
 const app = express();
 
 // Configure CORS
+// app.use(cors({
+//   origin: process.env.FRONTEND_URL || 'http://localhost:5500' , // Uses Render variable OR fallback
+//   credentials: true
+// }));
+// Configure CORS to allow multiple origins
+const allowedOrigins = [
+    process.env.FRONTEND_URL,         // Your main customer frontend (e.g., https://printmypage.netlify.app)
+    process.env.SUPPLIER_FRONTEND_URL, // Your new supplier frontend (e.g., https://pmpsupplierportal.netlify.app)
+    'http://localhost:5500',          // Your local customer frontend (optional, for testing)
+    'http://localhost:5501'           // Your local supplier frontend (optional, for testing - adjust port if needed)
+];
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5500', // Uses Render variable OR fallback
-  credentials: true
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests) OR requests from localhost during development
+    if (!origin || allowedOrigins.some(allowed => origin.startsWith(allowed) || origin.startsWith('http://localhost'))) {
+         // A simplified check allowing localhost regardless of port for easier local dev
+         // In stricter production, you might only allow specific localhost ports listed in allowedOrigins
+        return callback(null, true);
+    }
+    // Check if the request origin is in our allowed list (for deployed sites)
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = `The CORS policy for this site does not allow access from the specified Origin: ${origin}`;
+      console.error('CORS Error:', msg); // Log the blocked origin
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true // Allow cookies
 }));
 app.use(cookieParser()); // To read cookies from the request
 
