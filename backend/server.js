@@ -44,8 +44,8 @@ const app = express();
 
 // Configure CORS
 app.use(cors({
-  origin: 'http://localhost:5500', // Trust your frontend's new address
-  credentials: true                // Allow cookies to be sent
+  origin: process.env.FRONTEND_URL || 'http://localhost:5500', // Uses Render variable OR fallback
+  credentials: true
 }));
 app.use(cookieParser()); // To read cookies from the request
 
