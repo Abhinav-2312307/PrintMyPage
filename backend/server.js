@@ -702,8 +702,14 @@ app.post('/api/auth/login', async (req, res) => {
     }
     const tokenPayload = { id: user._id, name: user.name, rollNumber: user.rollNumber };
     const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: '1d' });
+    // res.cookie('token', token, {
+    //   httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax', maxAge: 24 * 60 * 60 * 1000
+    // });
     res.cookie('token', token, {
-      httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax', maxAge: 24 * 60 * 60 * 1000
+        httpOnly: true, // Keeps cookie inaccessible to client-side script
+        secure: true, // MUST be true for SameSite=None
+        sameSite: 'None', // Allows cross-site cookie sending
+        maxAge: 24 * 60 * 60 * 1000 // 1 day
     });
     res.status(200).json({ message: 'Login successful!', user: tokenPayload });
   } catch (error) {
@@ -714,9 +720,17 @@ app.post('/api/auth/login', async (req, res) => {
 
 // ROUTE: LOGOUT A USER
 app.get('/api/auth/logout', (req, res) => {
-  res.cookie('token', '', {
-    httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax', expires: new Date(0)
-  });
+  // res.cookie('token', '', {
+  //   httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax', expires: new Date(0)
+  // });
+  // ... inside /api/auth/logout ...
+res.cookie('token', '', {
+    httpOnly: true,
+    secure: true, // MUST be true for SameSite=None
+    sameSite: 'None', // Allows cross-site cookie sending
+    expires: new Date(0) // Expire the cookie immediately
+});
+// ... rest of the route ...
   res.status(200).json({ message: 'Logout successful.' });
 });
 
