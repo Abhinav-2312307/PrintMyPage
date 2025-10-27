@@ -1,22 +1,30 @@
 const puppeteer = require('puppeteer');
-const path = require('path'); // Keep path for potential future screenshotting
 
 async function verifyERPLogin(rollNumber, password) {
   let browser;
-  try {
-    console.log('Launching ERP verification (Relying on default Puppeteer browser)...');
+  // Define the expected path based on standard Puppeteer cache and Render's setup
+  // Note: The exact revision might change slightly over time, but the structure is usually similar.
+  // We determined the '141.0.7390.122' part from your previous logs.
+  // If builds fail later, check the build logs again for the installed path.
+  const chromePath = process.env.PUPPETEER_EXECUTABLE_PATH || '/opt/render/.cache/puppeteer/chrome/linux-141.0.7390.122/chrome-linux64/chrome';
 
-    // --- ✨ REMOVED executablePath OPTION ✨ ---
-    // const chromePath = '/opt/render/.cache/puppeteer/...'; // No longer needed
-    // console.log(`Using Chrome executable path: ${chromePath}`);
+  try {
+    console.log('Launching ERP verification...');
+    console.log(`Attempting to use Chrome executable path: ${chromePath}`);
 
     browser = await puppeteer.launch({
-        headless: true,
-        // executablePath: chromePath, // REMOVED THIS LINE
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
+      headless: true,
+      executablePath: chromePath, // Explicitly point to the installed Chrome
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage', // Often needed in limited environments
+        '--disable-accelerated-2d-canvas',
+        '--disable-gpu' // Often needed in headless environments
+      ]
     });
-    // ------------------------------------
 
+    console.log('Browser launched successfully.');
     const page = await browser.newPage();
     await page.goto('https://erp.psit.ac.in/Student/');
 
@@ -24,19 +32,20 @@ async function verifyERPLogin(rollNumber, password) {
     await page.type('#password', password);
     await page.click('button[type="submit"]');
 
-    // Wait for the logout link to appear, indicating successful login
     console.log('Login clicked, waiting for dashboard... (Waiting for logout link)');
     const logoutSelector = 'a[href="https://erp.psit.ac.in/Student/Logout"]';
-    await page.waitForSelector(logoutSelector, { timeout: 15000 }); // Increased timeout slightly just in case
+    await page.waitForSelector(logoutSelector, { timeout: 15000 });
 
     console.log('ERP verification successful: Logout link found.');
     await browser.close();
     return true;
 
   } catch (error) {
-    // Timeout usually means login failed (logout link never appeared)
-    console.error('ERP verification error (likely bad credentials or page structure change):', error.message);
-    // Attempt to close browser if it exists, even on error
+    console.error('ERP verification error:', error.message);
+    // If the error message still mentions "Browser was not found", log the path again
+    if (error.message.includes('Browser was not found')) {
+        console.error(`PUPPETEER FAILED TO FIND BROWSER AT: ${chromePath}`);
+    }
     if (browser) {
         try { await browser.close(); } catch (closeError) { console.error('Error closing browser after failure:', closeError); }
     }
