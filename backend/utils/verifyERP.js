@@ -4,16 +4,16 @@ const path = require('path'); // Keep path for potential future screenshotting
 async function verifyERPLogin(rollNumber, password) {
   let browser;
   try {
-    console.log('Launching ERP verification...');
+    console.log('Launching ERP verification (Relying on default Puppeteer browser)...');
 
-    // --- Specify Chrome executable path for Render ---
-    const chromePath = '/opt/render/.cache/puppeteer/chrome/linux-141.0.7390.122/chrome-linux64/chrome';
-    console.log(`Using Chrome executable path: ${chromePath}`); // Log the path
+    // --- ✨ REMOVED executablePath OPTION ✨ ---
+    // const chromePath = '/opt/render/.cache/puppeteer/...'; // No longer needed
+    // console.log(`Using Chrome executable path: ${chromePath}`);
 
     browser = await puppeteer.launch({
-      headless: true, // Keep headless for production
-      executablePath: chromePath, // Tell Puppeteer where Chrome is installed by the build script
-      args: ['--no-sandbox', '--disable-setuid-sandbox'] // Standard args for server environments
+        headless: true,
+        // executablePath: chromePath, // REMOVED THIS LINE
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
     // ------------------------------------
 
