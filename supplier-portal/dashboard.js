@@ -122,39 +122,77 @@ document.addEventListener('DOMContentLoaded', () => {
     } // End of loadOrders function
     
     // 5. Add event listener for status changes
+    // --- UPDATED event listener for status changes ---
     orderList.addEventListener('change', async (e) => {
+        // Log 1: Event triggered
+        console.log('[DEBUG] Change event triggered on order list.');
+
+        // Check if the changed element is the status dropdown
         if (e.target.classList.contains('status-select')) {
-            const orderId = e.target.dataset.orderId;
-            const newStatus = e.target.value;
-            
+            const statusSelectElement = e.target; // Keep reference to the select element
+            const newStatus = statusSelectElement.value;
+
+            // Log 2: Status changed
+            console.log('[DEBUG] Status select changed to:', newStatus);
+
+            // Get the MongoDB _id from the data attribute
+            const orderDbId = statusSelectElement.dataset.orderId; // Use orderId as defined in dataset
+
             // Find the parent order-card to get the remark text
-            const orderCard = e.target.closest('.order-card');
-            const supplierRemark = orderCard.querySelector('.supplier-remark-input').value;
-            
-            // --- NEW: Send status and remark together ---
+            // Ensure the class name matches your HTML structure
+            const orderCard = statusSelectElement.closest('.order-card-item');
+            const supplierRemarkInput = orderCard ? orderCard.querySelector('.supplier-remark-input') : null;
+            const supplierRemark = supplierRemarkInput ? supplierRemarkInput.value : '';
+
+            // Log 3: Prepare update
+            console.log(`[DEBUG] Preparing to update Order DB ID: ${orderDbId} to status: ${newStatus} with remark: "${supplierRemark}"`);
+
+            // Disable dropdown during update
+            statusSelectElement.disabled = true;
+
             try {
-                const response = await fetch(`${backendUrl}/api/supplier/orders/${orderId}`, {
+                // Log 4: Sending request
+                console.log(`[DEBUG] Sending PUT request to: ${backendUrl}/api/supplier/orders/${orderDbId}`);
+
+                const response = await fetch(`${backendUrl}/api/supplier/orders/${orderDbId}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
+                    body: JSON.stringify({
                         newStatus: newStatus,
                         supplierRemark: supplierRemark
-                    })
+                    }),
+                    credentials: 'include' // Important for future cookie-based auth
                 });
 
-                const result = await response.json();
-                if (!response.ok) throw new Error(result.message);
-                
-                // Refresh orders to show the change
-                loadOrders(); 
+                // Log 5: Response received
+                console.log('[DEBUG] Received response Status:', response.status);
+                const result = await response.json(); // Always try to parse JSON
+                console.log('[DEBUG] Received response Body:', result);
+
+                if (!response.ok) {
+                    // Throw error using message from backend if available
+                    throw new Error(result.message || `HTTP error! status: ${response.status}`);
+                }
+
+                // Success! Refresh orders to show the change.
+                // loadOrders() will implicitly re-enable the dropdown when it redraws the list.
+                console.log('[DEBUG] Update successful, reloading orders...');
+                loadOrders();
 
             } catch (error) {
-                console.error(error);
+                console.error('[DEBUG] Error updating status:', error);
                 alert('Error updating status: ' + error.message);
-                loadOrders(); // Reload to reset the dropdown
+                // Re-enable dropdown only on error
+                statusSelectElement.disabled = false;
+                // Optionally reload orders here too, to reset the dropdown visually if needed,
+                // but usually better to let the user retry without full reload.
+                // loadOrders();
             }
+        } else {
+            // Optional Log 6: Change event wasn't on the target element
+            // console.log('[DEBUG] Change event target was not a status-select element.');
         }
-    });
+    }); // End of change event listener
     // --- ✨ NEW: Add event listener for ACCEPT BROADCAST button clicks ---
     orderList.addEventListener('click', async (e) => {
         if (e.target.classList.contains('accept-broadcast-btn')) {
