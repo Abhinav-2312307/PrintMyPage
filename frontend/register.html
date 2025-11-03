@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-R" />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register - PrintMyPage</title>
     <link rel="stylesheet" href="auth-styles.css" />
@@ -14,61 +14,30 @@
       </p>
 
       <form id="registerForm">
-        
         <div class="input-group">
           <label for="name">Full Name</label>
           <input type="text" id="name" name="name" required /> 
         </div>
-
         <div class="input-group">
           <label for="rollNumber">Roll Number</label>
           <input type="text" id="rollNumber" name="rollNumber" required />
         </div>
-
         <div class="input-group">
           <label for="branch">Branch</label>
-          <input
-            type="text"
-            id="branch"
-            name="branch"
-            required
-            placeholder="e.g., CSE, IT, ME"
-          />
+          <input type="text" id="branch" name="branch" required placeholder="e.g., CSE, IT, ME" />
         </div>
-
         <div class="input-group">
           <label for="section">Section</label>
-          <input
-            type="text"
-            id="section"
-            name="section"
-            required
-            placeholder="e.g., A, B, CS1"
-          />
+          <input type="text" id="section" name="section" required placeholder="e.g., A, B, CS1" />
         </div>
-
         <div class="input-group">
           <label for="contactNo">Contact Number</label>
-          <input
-            type="tel"
-            id="contactNo"
-            name="contactNo"
-            required
-            placeholder="For delivery updates"
-          />
+          <input type="tel" id="contactNo" name="contactNo" required placeholder="For delivery updates" />
         </div>
-
         <div class="input-group">
           <label for="email">College Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            placeholder="your.roll_no@psit.ac.in"
-          />
+          <input type="email" id="email" name="email" required placeholder="your.roll_no@psit.ac.in" />
         </div>
-
         <div class="input-group">
           <label for="password">Create Password</label>
           <input type="password" id="password" name="password" required minlength="6" />
@@ -76,14 +45,9 @@
             Must be at least 6 characters. You will use this to log in.
           </p>
         </div>
-
-        <button type="submit" class="auth-btn" id="registerBtn">
-          Register
-        </button>
+        <button type="submit" class="auth-btn" id="registerBtn">Register</button>
       </form>
-
       <div class="error-message" id="errorMessage"></div>
-
       <p class="sub-text">
         Already have an account? <a href="login.html">Login here</a>
       </p>
