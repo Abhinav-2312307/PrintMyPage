@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PrintMyPage - Professional Printing Services</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css"> 
 </head>
 <body>
+
     <nav class="main-nav">
         <div class="nav-links">
             <a href="index.html">Place Order</a>
@@ -16,7 +17,7 @@
         
         <div class="nav-right-group"> 
             <div class="nav-auth" id="auth-links">
-            </div>
+              </div>
             
             <div class="instructions-container"> 
                 <div class="instructions-btn">
@@ -28,20 +29,12 @@
                 </div>
                 <div class="instructions-content">
                     <ul>
-                        <li>1. Fill the form with your details</li>
-                        <li>2. Upload your file (PDF, JPG, PNG Only)</li>
-                        <li>3. Select Print Options</li>
-                        <li>4. Select a supplier and place your order</li>
-                        <li>5. Wait for acceptance & pay via "My Orders"</li>
+                        <li>1. Login or Register your account.</li>
+                        <li>2. Upload your file (PDF, JPG, PNG Only).</li>
+                        <li>3. Select your Print Options.</li>
+                        <li>4. Choose a supplier or "Anyone Available".</li>
+                        <li>5. Go to "My Orders" to pay for accepted orders.</li>
                         <li>6. Collect your print!</li>
-                        <li>
-                            <h4>Discount</h4>
-                            <ul>
-                                <li>25% on order above ₹200</li>
-                                <li>20% on order above ₹100</li>
-                                <li>5% on order above ₹50</li>
-                            </ul>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -80,29 +73,26 @@
             <div class="form-grid">
                 <div class="input-group">
                     <label>Full Name</label>
-                    <input type="text" id="orderFormName" name="name" required> 
+                    <input type="text" id="orderFormName" name="name" required readonly> 
                 </div>
                 <div class="input-group">
                     <label>Branch</label>
-                    <input type="text" id="orderFormBranch" name="branch" required> 
+                    <input type="text" id="orderFormBranch" name="branch" required readonly> 
                 </div>
                 <div class="input-group">
                     <label>Section</label>
-                    <input type="text" id="orderFormSection" name="section" required>
+                    <input type="text" id="orderFormSection" name="section" required readonly>
                 </div>
-                <!-- <div class="input-group">
-                    <label>Academic Year</label>
-                    <input type="number" id="orderFormYear" name="academicYear" required> 
-                </div> -->
                 <div class="input-group">
                     <label>Roll Number</label>
-                    <input type="text" id="orderFormRollNumber" name="rollNumber" required> 
+                    <input type="text" id="orderFormRollNumber" name="rollNumber" required readonly> 
                 </div>
                 <div class="input-group">
                     <label>Contact Number</label>
-                    <input type="tel" id="orderFormContactNo" name="contactNo" required placeholder="For delivery updates"> 
+                    <input type="tel" id="orderFormContactNo" name="contactNo" required readonly> 
                 </div>
-            </div> 
+            </div>
+            
             <div class="input-group">
                 <label>Upload Your File (PDF, JPG, PNG)</label>
                 <input type="file" name="documentFile" id="documentFile" required accept=".pdf,.jpg,.jpeg,.png"> 
@@ -111,7 +101,7 @@
                 <input type="hidden" name="originalFilename" id="originalFilenameInput">
                 <input type="hidden" name="detectedPageCountResult" id="pageCountResultInput"> 
             </div>
-
+            
             <div class="input-group">
                 <label>Print Type</label>
                 <select id="printType" name="printType" required> 
@@ -122,23 +112,23 @@
                     <option value="a4">A4 Sheet (70GSM) (₹1.5/page)</option>
                 </select>
             </div>
-
+            
             <div class="input-group" id="manualPagesGroup" style="display: none;">
                 <label for="orderFormPages">Number of Pages</label>
                 <input type="number" id="orderFormPages" name="pages" min="1">
                 <p class="field-note">Please enter page count manually for this file type.</p>
             </div>
-
+            
             <div class="input-group">
                 <label for="orderFormCopies">Number of Copies</label>
                 <input type="number" id="orderFormCopies" name="copies" value="1" min="1" required>
             </div>
-
+            
             <div class="input-group checkbox-group">
                  <input type="checkbox" id="orderFormDuplex" name="duplex" value="true">
                  <label for="orderFormDuplex">Print Back-to-Back (Duplex)</label>
             </div>
-
+            
             <div class="input-group">
                 <label for="orderFormPaperSize">Paper Size</label>
                 <select id="orderFormPaperSize" name="paperSize" required>
@@ -146,8 +136,8 @@
                     <option value="Letter">Letter (8.5 x 11 in)</option>
                 </select>
             </div>
-
-            <div class="order-preview" id="orderPreview" style="display: none;"> {/* Initially hidden */}
+            
+            <div class="order-preview" id="orderPreview" style="display: none;">
                 <h3>Order Summary</h3>
                 <p><strong>Filename:</strong> <span id="previewFilename">-</span></p>
                 <p><strong>Detected Pages:</strong> <span id="previewPages">-</span></p>
@@ -155,10 +145,8 @@
                 <p><strong>Printing:</strong> <span id="previewDuplex">Single-sided</span></p>
                 <p><strong>Estimated Price:</strong> <strong id="previewPrice">₹0.00</strong></p>
             </div>
-            
             <br>
             <button type="submit" class="order-btn">Choose Supplier & Place Order</button>
-            
             <div class="server-modal" id="serverModal">
                 <div class="server-list" id="server-list-container">
                     <div class="modal-header">
@@ -173,12 +161,16 @@
         <section class="contact-section">
             <h2>Contact Us</h2>
             <div class="contact-info">
-                <p><strong>Looking to partner with us and offer printing services? Get in touch!</strong></p>
+                <p><strong>Looking to partner with us? Get in touch!</strong></p>
                 <p><a href="mailto:printmypagepsit@gmail.com" style="color: #00ff88;">printmypagepsit@gmail.com</a></p>
             </div>
         </section>
     </div>
     
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="firebase-config.js"></script>
     <script src="script.js"></script>
+    
 </body>
 </html>

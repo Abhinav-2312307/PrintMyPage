@@ -5,6 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - PrintMyPage</title>
     <link rel="stylesheet" href="auth-styles.css">
+    
+    <style>
+        .google-btn {
+            display: flex; /* Changed to flex */
+            align-items: center;
+            justify-content: center;
+            gap: 10px; /* Space between icon and text */
+            background-color: #4285F4; /* Google Blue */
+            color: white;
+            text-align: center;
+            padding: 0.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            transition: background-color 0.3s;
+            border: none; /* Make it look like a button */
+            width: 100%; /* Full width */
+            font-size: 1rem; /* Match other inputs */
+            cursor: pointer;
+        }
+        .google-btn:hover {
+            background-color: #357ae8;
+        }
+        .or-divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            color: #888;
+        }
+    </style>
 </head>
 <body>
     
@@ -13,21 +43,40 @@
         
         <form id="loginForm">
             <div class="input-group">
-                <label for="rollNumber">Roll Number</label>
-                <input type="text" id="rollNumber" name="rollNumber" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
             </div>
             <div class="input-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-
             <button type="submit" class="auth-btn" id="loginBtn">Login</button>
         </form>
+
+        <p class="or-divider">OR</p>
+
+        <button type="button" class="google-btn" id="googleLoginBtn">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 48 48"><g><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></g></svg>
+            Sign in with Google
+        </button>
+
+        <div id="phoneAuthContainer" style="display: none;">
+            <p class="or-divider">OR</p>
+            <div class="input-group">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+91 12345 67890">
+            </div>
+            <button type="button" class="auth-btn" id="phoneLoginBtn">Send OTP</button>
+            <div id="recaptcha-container" style="margin-top: 10px;"></div>
+        </div>
 
         <div class="error-message" id="errorMessage"></div>
         <p class="sub-text">Don't have an account? <a href="register.html">Register here</a></p>
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="firebase-config.js"></script>
     <script src="auth.js"></script>
 </body>
 </html>

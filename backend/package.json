@@ -24,7 +24,6 @@
     "multer": "^2.0.2",
     "nodemailer": "^7.0.10",
     "pdf-lib": "^1.17.1",
-    "puppeteer": "^24.26.1",
     "razorpay": "^2.9.6"
   }
 }

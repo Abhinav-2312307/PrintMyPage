@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-R" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register - PrintMyPage</title>
     <link rel="stylesheet" href="auth-styles.css" />
@@ -9,6 +9,9 @@
   <body>
     <div class="auth-container">
       <h1>Create Account</h1>
+      <p style="text-align: center; color: #999; margin-top: -1.5rem; margin-bottom: 2rem;">
+          Create your profile to start ordering.
+      </p>
 
       <form id="registerForm">
         
@@ -67,11 +70,10 @@
         </div>
 
         <div class="input-group">
-          <label for="password">Official ERP Password</label>
-          <input type="password" id="password" name="password" required />
+          <label for="password">Create Password</label>
+          <input type="password" id="password" name="password" required minlength="6" />
           <p style="font-size: 0.8rem; color: #999; margin-top: 5px">
-            Your official college password is required for one-time
-            verification. It will be used to log in to your PrintMyPage account.
+            Must be at least 6 characters. You will use this to log in.
           </p>
         </div>
 
@@ -87,6 +89,9 @@
       </p>
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="firebase-config.js"></script>
     <script src="auth.js"></script>
   </body>
 </html>

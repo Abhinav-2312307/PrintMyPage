@@ -73,6 +73,7 @@
 // module.exports = User;
 
 // backend/models/userModel.js
+// backend/models/userModel.js
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
